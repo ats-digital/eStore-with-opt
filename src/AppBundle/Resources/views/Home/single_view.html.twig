@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-3">
+        <p class="lead">eShop of Awesomeness</p>
+        <div class="list-group">
+            <a href class="list-group-item active">[[ selectedProduct.tag ]]</a>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="thumbnail">
+            <img class="img-responsive" ng-src="[[ selectedProduct.image_url_with_suffix ]]" alt="">
+            <div class="caption-full">
+                <h4 class="pull-right">$[[ selectedProduct.price ]]</h4>
+                <h4><a href="#">[[ selectedProduct.productName ]]</a>
+                </h4>
+                <strong>[[ selectedProduct.description ]]</strong>
+                <hr/>
+                <p>[[ selectedProduct.details ]]</p>
+            </div>
+            <div class="ratings">
+                <p class="pull-right">[[ selectedProduct.review_count ]] review(s)</p>
+                <p>
+                    <span ng-repeat="rating in util.getNumber(selectedProduct.overall_rating) track by $index" class="glyphicon glyphicon-star"></span>
+                    <span ng-repeat="rating in util.getNumber(5 - selectedProduct.overall_rating) track by $index" class="glyphicon glyphicon-star-empty"></span>
+                </p>
+            </div>
+        </div>
+        <div class="well">
+            <div class="text-right">
+                <a class="btn btn-success">Leave a Review</a>
+            </div>
+            <hr>
+
+            <div class="row" ng-if="! selectedProduct.reviews.length">
+                <div class="col-md-12">No ratings so far.</div>
+            </div>
+
+            <div class="row" ng-repeat="review in selectedProduct.reviews">
+                <div class="col-md-12">
+                    <span ng-repeat="rating in util.getNumber(review.rating) track by $index" class="glyphicon glyphicon-star"></span>
+                    <span ng-repeat="rating in util.getNumber(5 - review.rating) track by $index" class="glyphicon glyphicon-star-empty"></span>
+                    Anonymous
+                    <span class="pull-right">10 days ago</span>
+                    <p>[[ review.content]] !</p>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>

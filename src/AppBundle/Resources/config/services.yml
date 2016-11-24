@@ -1,0 +1,25 @@
+services:
+    cache.redis:
+        class: AppBundle\Service\RedisCacheProvider
+        arguments: ['%redis_connection%']
+
+    profiling.stopwatch:
+        class: AppBundle\Service\StopwatchProvider
+        arguments: []
+
+    importer.products:
+        class: AppBundle\Service\ProductImporterService
+        arguments: ['@doctrine.odm.mongodb.document_manager', '@guzzle.client.api_products', '@jms_serializer']        
+
+    command.importer.products:
+        class: AppBundle\Command\ImportProductsCommand
+        calls:
+            - [setContainer, ["@service_container"] ]
+
+    rest_body_listener:
+        class: AppBundle\Annotation\Driver\AnnotationDriver
+        tags:
+            -   { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+            -   { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+            -   { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+        arguments: ['@annotation_reader', '@profiling.stopwatch', '@cache.redis']

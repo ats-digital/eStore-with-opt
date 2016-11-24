@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="list-group">
+            <label>Search : </label>
+            <input type="text" ng-model="searchFilter.productName" ng-model-options="{ debounce : 400 }"></input>
+            <hr/>
+            <p class="lead">Tags</p>
+            <a ng-class="{'selected' : tag.selected }" ng-click="toggleTag(tag)" ng-repeat="tag in tags" href class="list-group-item tag">[[ tag.name ]]</a>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row carousel-holder">
+            <div class="col-md-12">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img class="slide-image" src="{{ asset('bundles/app/img/shop.jpg') }}" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="slide-image" src="{{ asset('bundles/app/img/shop.jpg') }}" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="slide-image" src="{{ asset('bundles/app/img/shop.jpg') }}" alt="">
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div ng-show="! filteredProducts.length">
+                <strong>No products matching your search criteria.</strong>
+            </div>
+            <div ng-preload class="col-sm-4 col-lg-4 col-md-4" ng-repeat="product in filteredProducts = (products | filter : searchFilter)">
+                <div class="thumbnail">
+                    <img ng-src="[[ product.image_url_with_suffix ]]" alt="">
+                    <div class="caption">
+                        <div class="row">
+                            <div class="col-md-3 pull-right">$[[ product.price ]]</div>
+                            <div class="col-md-9">
+                                <a href ng-click="switchTo('/products/' + product.id)">[[ product.productName ]]</a>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>[[ product.description ]].</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ratings">
+                        <p class="pull-right">[[ product.review_count ]] review(s)</p>
+                        <p>
+                            <span ng-repeat="rating in util.getNumber(product.overall_rating) track by $index" class="glyphicon glyphicon-star"></span>                            <span ng-repeat="rating in util.getNumber(5 - product.overall_rating) track by $index" class="glyphicon glyphicon-star-empty"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

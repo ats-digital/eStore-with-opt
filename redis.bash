@@ -1,0 +1,1 @@
+REDSMIN_KEY=57dea389972d7ecc0251b977 redsmin

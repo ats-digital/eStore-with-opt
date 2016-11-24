@@ -1,0 +1,13 @@
+app:
+   resource: "@AppBundle/Resources/config/routing.yml"
+   prefix:   /
+
+app_rest:
+    type : rest
+    resource : "@AppBundle/Resources/config/rest_routing.yml"
+    prefix : /api
+    options:
+        expose: true
+        
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

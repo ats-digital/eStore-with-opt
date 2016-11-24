@@ -1,0 +1,4 @@
+stats:
+    type: rest
+    resource: "AppBundle:Rest\\Dummy"
+    name_prefix:  api_dummy_
